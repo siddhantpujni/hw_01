@@ -11,7 +11,7 @@
 
 <meta name="author" content="Siddhant Pujni (s2344216)" />
 
-<meta name="date" content="2023-10-06" />
+<meta name="date" content="2023-10-07" />
 
 <title>hw-01</title>
 
@@ -352,7 +352,7 @@ display: none;
 
 <h1 class="title toc-ignore">hw-01</h1>
 <h4 class="author">Siddhant Pujni (s2344216)</h4>
-<h4 class="date">2023-10-06</h4>
+<h4 class="date">2023-10-07</h4>
 
 </div>
 
@@ -379,7 +379,7 @@ council &lt;- read_csv(&quot;data/council_assessments.csv&quot;)</code></pre>
   pull(id)</code></pre>
 <pre><code>## [1] 860170</code></pre>
 <ol style="list-style-type: decimal">
-<li><p>The following variables (coloumns) have a missing observation:
+<li><p>The following variables (coloumns) have a missing NA observation:
 price, neighbourhood, bathrooms, bedrooms, beds, and review scores
 rating.</p></li>
 <li><p>The id of the listing with the most 100% reviews is
@@ -389,9 +389,27 @@ rating.</p></li>
 </div>
 <div id="exercise-2" class="section level2">
 <h2>EXERCISE 2</h2>
-<pre class="r"><code># remove this comment and add the code for Exercise 2 here</code></pre>
-<p><em>Remove this text, and add your answer for Exercise 2
-here.</em></p>
+<pre class="r"><code>properties &lt;- edibnb %&gt;%
+  filter(neighbourhood == &quot;Old Town&quot; &amp; &quot;price&quot; &gt; 100)
+  nrow(properties)</code></pre>
+<pre><code>## [1] 1283</code></pre>
+<pre class="r"><code>southside_properties &lt;- edibnb %&gt;%
+  filter(neighbourhood == &quot;Southside&quot; &amp; &quot;accommodates&quot; &gt;= 4)
+
+# Calculating minimum, maximum, and average price
+min(southside_properties$price, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 10</code></pre>
+<pre class="r"><code>max(southside_properties$price, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 800</code></pre>
+<pre class="r"><code>mean(southside_properties$price, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 107.309</code></pre>
+<ol style="list-style-type: decimal">
+<li><p>There is 1,283 properties in Old Town where one night stay price
+is larger than 100 GBP</p></li>
+<li><p>The values for the minimum, maximum, and mean for a one night
+stay for a group of four in Southside are: min: 10 GBP a night, max: 800
+GBP a night, and mean: 107 GBP a night.</p></li>
+</ol>
 <hr />
 </div>
 <div id="exercise-3" class="section level2">

@@ -49,11 +49,28 @@ price, neighbourhood, bathrooms, bedrooms, beds, and review scores rating.
 ## EXERCISE 2
 
 ```{r hw1-ex2}
-# remove this comment and add the code for Exercise 2 here
+
+properties <- edibnb %>%
+  filter(neighbourhood == "Old Town" & "price" > 100)
+  nrow(properties)
+  
+
+southside_properties <- edibnb %>%
+  filter(neighbourhood == "Southside" & "accommodates" >= 4)
+
+# Calculating minimum, maximum, and average price
+min(southside_properties$price, na.rm = TRUE)
+max(southside_properties$price, na.rm = TRUE)
+mean(southside_properties$price, na.rm = TRUE)
 
 ```
 
-_Remove this text, and add your answer for Exercise 2 here._
+1. There is 1,283 properties in Old Town where one night stay price is larger than 100 GBP
+
+2. The values for the minimum, maximum, and mean for a one night stay for a group of four in Southside are:
+min: 10 GBP a night,
+max: 800 GBP a night, and
+mean: 107 GBP a night.
 
 ------------------------------------------------------------------------------
 
