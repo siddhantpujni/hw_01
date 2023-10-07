@@ -369,10 +369,12 @@ council &lt;- read_csv(&quot;data/council_assessments.csv&quot;)</code></pre>
 </div>
 <div id="exercise-1" class="section level2">
 <h2>EXERCISE 1</h2>
-<pre class="r"><code>colnames(edibnb)[colSums(is.na(edibnb)) &gt; 0]</code></pre>
+<pre class="r"><code># Finding variables with missing observations
+colnames(edibnb)[colSums(is.na(edibnb)) &gt; 0]</code></pre>
 <pre><code>## [1] &quot;price&quot;                &quot;neighbourhood&quot;        &quot;bathrooms&quot;           
 ## [4] &quot;bedrooms&quot;             &quot;beds&quot;                 &quot;review_scores_rating&quot;</code></pre>
-<pre class="r"><code>edibnb %&gt;%
+<pre class="r"><code># Finding listing ID with most 100% reviews
+edibnb %&gt;%
   filter(review_scores_rating == 100) %&gt;%
   arrange(desc(number_of_reviews)) %&gt;%
   slice(1) %&gt;%
@@ -389,14 +391,16 @@ rating.</p></li>
 </div>
 <div id="exercise-2" class="section level2">
 <h2>EXERCISE 2</h2>
-<pre class="r"><code>properties &lt;- edibnb %&gt;%
-  filter(neighbourhood == &quot;Old Town&quot; &amp; &quot;price&quot; &gt; 100)
-  nrow(properties)</code></pre>
+<pre class="r"><code># Finding properties in Old Town for one night stay larger than 100GBP
+edibnb %&gt;%    
+  filter(neighbourhood == &quot;Old Town&quot; &amp; &quot;price&quot; &gt; 100) %&gt;%
+  nrow()</code></pre>
 <pre><code>## [1] 1283</code></pre>
-<pre class="r"><code>southside_properties &lt;- edibnb %&gt;%
+<pre class="r"><code># Filtering properties for given criteria 
+southside_properties &lt;- edibnb %&gt;%
   filter(neighbourhood == &quot;Southside&quot; &amp; &quot;accommodates&quot; &gt;= 4)
 
-# Calculating minimum, maximum, and average price
+# Calculating min, max, and avg price
 min(southside_properties$price, na.rm = TRUE)</code></pre>
 <pre><code>## [1] 10</code></pre>
 <pre class="r"><code>max(southside_properties$price, na.rm = TRUE)</code></pre>
@@ -414,9 +418,35 @@ GBP a night, and mean: 107 GBP a night.</p></li>
 </div>
 <div id="exercise-3" class="section level2">
 <h2>EXERCISE 3</h2>
-<pre class="r"><code># remove this comment and add the code for Exercise 3 here</code></pre>
-<p><em>Remove this text, and add your answer for Exercise 3
-here.</em></p>
+<pre class="r"><code># Frequency table for bathrooms in Newington
+edibnb %&gt;%
+  filter(neighbourhood == &quot;Newington&quot;) %&gt;%
+  count(bathrooms)</code></pre>
+<pre><code>## # A tibble: 8 × 2
+##   bathrooms     n
+##       &lt;dbl&gt; &lt;int&gt;
+## 1       0       1
+## 2       0.5     3
+## 3       1     348
+## 4       1.5    48
+## 5       2      34
+## 6       3       3
+## 7       3.5     1
+## 8      NA       1</code></pre>
+<pre class="r"><code># Creating new variable for rounded bathroom number
+edibnb &lt;- edibnb %&gt;%
+  mutate(bathrooms_2 = ceiling(bathrooms))
+
+# Counting how many more bathrooms than bedrooms using new variable
+edibnb%&gt;%
+  filter(bathrooms_2 &gt; bedrooms) %&gt;%
+  nrow()</code></pre>
+<pre><code>## [1] 963</code></pre>
+<ol style="list-style-type: decimal">
+<li>Frequency table is shown above</li>
+<li>There is 963 listings with more bathrooms than bedrooms when using
+the rounded value for the number of bathrooms.</li>
+</ol>
 <hr />
 </div>
 <div id="exercise-4" class="section level2">

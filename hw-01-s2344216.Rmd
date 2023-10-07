@@ -29,8 +29,10 @@ council <- read_csv("data/council_assessments.csv")
 
 ```{r hw1-ex1}
 
+# Finding variables with missing observations
 colnames(edibnb)[colSums(is.na(edibnb)) > 0]
 
+# Finding listing ID with most 100% reviews
 edibnb %>%
   filter(review_scores_rating == 100) %>%
   arrange(desc(number_of_reviews)) %>%
@@ -50,15 +52,16 @@ price, neighbourhood, bathrooms, bedrooms, beds, and review scores rating.
 
 ```{r hw1-ex2}
 
-properties <- edibnb %>%
-  filter(neighbourhood == "Old Town" & "price" > 100)
-  nrow(properties)
-  
+# Finding properties in Old Town for one night stay larger than 100GBP
+edibnb %>%    
+  filter(neighbourhood == "Old Town" & "price" > 100) %>%
+  nrow()
 
+# Filtering properties for given criteria 
 southside_properties <- edibnb %>%
   filter(neighbourhood == "Southside" & "accommodates" >= 4)
 
-# Calculating minimum, maximum, and average price
+# Calculating min, max, and avg price
 min(southside_properties$price, na.rm = TRUE)
 max(southside_properties$price, na.rm = TRUE)
 mean(southside_properties$price, na.rm = TRUE)
@@ -77,13 +80,25 @@ mean: 107 GBP a night.
 ## EXERCISE 3
 
 ```{r hw1-ex3}
-# remove this comment and add the code for Exercise 3 here
 
+# Frequency table for bathrooms in Newington
+edibnb %>%
+  filter(neighbourhood == "Newington") %>%
+  count(bathrooms)
+
+# Creating new variable for rounded bathroom number
+edibnb <- edibnb %>%
+  mutate(bathrooms_2 = ceiling(bathrooms))
+
+# Counting how many more bathrooms than bedrooms using new variable
+edibnb%>%
+  filter(bathrooms_2 > bedrooms) %>%
+  nrow()
 ```
 
 
-_Remove this text, and add your answer for Exercise 3 here._
-
+1. Frequency table is shown above
+2. There is 963 listings with more bathrooms than bedrooms when using the rounded value for the number of bathrooms. 
 
 
 ------------------------------------------------------------------------------
