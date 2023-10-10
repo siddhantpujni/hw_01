@@ -36,8 +36,8 @@ colnames(edibnb)[colSums(is.na(edibnb)) > 0]
 edibnb %>%
   filter(review_scores_rating == 100) %>%
   arrange(desc(number_of_reviews)) %>%
-  slice(1) %>%
-  pull(id)
+  filter(row_number() == 1) %>%
+  select(id)
   
 ```
 
@@ -57,7 +57,7 @@ edibnb %>%
   filter(neighbourhood == "Old Town" & "price" > 100) %>%
   nrow()
 
-# Filtering properties for given criteria 
+# Filtering for properties in Southside that accommodate more than 4 people 
 southside_properties <- edibnb %>%
   filter(neighbourhood == "Southside" & "accommodates" >= 4)
 
@@ -106,12 +106,33 @@ edibnb%>%
 ## EXERCISE 4
 
 ```{r hw1-ex4}
-# remove this comment and add the code for Exercise 4 here
+
+# Changing variable from character to date class type
+council$assessment_date <- dmy(council$assessment_date)
+
+# Finding Properties assessed in May
+council %>%
+  filter(month(assessment_date) == 5) %>%
+  nrow()
+
+# Joining the two data sets
+all_data <- left_join(edibnb, council, by = "id")
+
+# Plotting the Bar Chart  
+ggplot(data = all_data, 
+       mapping = aes(x = neighbourhood)) +
+  geom_bar(fill = "blue") +
+  labs(
+    title = "Bar Plot of Properties Assessed by the Council",
+    x = "Neighbourhood",
+    y = "Number of Properties Assessed"
+  ) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5))
 
 ```
 
+1.There was 296 properties assessed in May by the council.
 
-_Remove this text, and add your answer for Exercise 4 here._
-
+2. The bar plot suggests that the council prioritises assessing properties in Leith over other neighbourhoods in Edinburgh as they have performed more than 3000 assessments there compared to the next closest being Old Town with half as many assessments at roughly 1500. Moreover, there is a lot of properties that have not been assessed at all (the na bar) with the number being roughly 2500 properties. 
 
 ------------------------------------------------------------------------------
