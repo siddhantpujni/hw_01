@@ -131,8 +131,8 @@ ggplot(data = all_data,
 
 ```
 
-1.There was 296 properties assessed in May by the council.
+  1. There was 296 properties assessed in May by the council.
 
-2. The bar plot suggests that the council prioritises assessing properties in Leith over other neighbourhoods in Edinburgh as they have performed more than 3000 assessments there compared to the next closest being Old Town with half as many assessments at roughly 1500. Moreover, there is a lot of properties that have not been assessed at all (the na bar) with the number being roughly 2500 properties. 
+2. The bar plot suggests that the council prioritises assessing properties in Leith over other neighbourhoods in Edinburgh as they have performed more than 3000 assessments there compared to the next closest being Old Town with half as many assessments at roughly 1500. Moreover, there is a lot of properties that have not been assessed at all (the na bar) with the number being roughly 2500 properties. Hence, the bar plot shows that there is definitely a skew in the areas in which the council prefers to make observations which they could attempt to even out.
 
 ------------------------------------------------------------------------------
